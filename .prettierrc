@@ -1,4 +1,3 @@
-
 {
     "arrowParens": "always",
     "bracketSpacing": true,
@@ -19,6 +18,10 @@
     "trailingComma": "es5",
     "useTabs": false,
     "vueIndentScriptAndStyle": false,
-    "filepath": "e:\\source\\repos\\dev-the-gathering\\dev-the-gathering-webapp\\pages\\app\\[application].tsx",
-    "parser": "typescript"
+    "prettier.cssEnable": [
+      "css",
+      "less",
+      "sass",
+      "scss"
+    ]
   }
