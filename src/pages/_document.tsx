@@ -6,6 +6,8 @@ const MyDocument = (props: DocumentInitialProps) => {
   return (
     <Html lang="en">
       <Head>
+        <meta name="description" content="A decentralized/centralized cards album game for learning purposes." />
+        <link rel="icon" href="/favicon.ico" />
         {/* <link rel="shortcut icon" href="/static/favicon.ico" /> */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

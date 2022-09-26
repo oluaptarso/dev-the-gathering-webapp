@@ -1,11 +1,11 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
-import { ApplicationTypeEnum } from '../../app/enums/ApplicationTypeEnum';
-import IAuthenticationService from '../../app/interfaces/IAuthenticationService';
-import IDevTheGatheringService from '../../app/interfaces/IDevTheGatheringService';
-import AuthenticationCentralizedService from '../../app/services/authentication/AuthenticationCentralizedService';
-import AuthenticationDecentralizedService from '../../app/services/authentication/AuthenticationDecentralizedService';
-import DevTheGatheringCentralizedService from '../../app/services/dev-the-gathering/DevTheGatheringCentralizedService';
-import DevTheGatheringDecentralizedService from '../../app/services/dev-the-gathering/DevTheGatheringDecentralizedService';
+import { ApplicationTypeEnum } from '../../enums/ApplicationTypeEnum';
+import IAuthenticationService from '../../interfaces/IAuthenticationService';
+import IDevTheGatheringService from '../../interfaces/IDevTheGatheringService';
+import AuthenticationCentralizedService from '../../services/authentication/AuthenticationCentralizedService';
+import AuthenticationDecentralizedService from '../../services/authentication/AuthenticationDecentralizedService';
+import DevTheGatheringCentralizedService from '../../services/dev-the-gathering/DevTheGatheringCentralizedService';
+import DevTheGatheringDecentralizedService from '../../services/dev-the-gathering/DevTheGatheringDecentralizedService';
 
 const Application: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   authenticationService,
