@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Document, { Html, Head, Main, NextScript, DocumentContext, DocumentInitialProps } from 'next/document';
 import { AppType } from 'next/dist/shared/lib/utils';
+import { ServerStyleSheet } from 'styled-components';
 
 const MyDocument = (props: DocumentInitialProps) => {
   return (
@@ -46,19 +47,28 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<DocumentIniti
   // 3. app.render
   // 4. page.render
 
+  const sheet = new ServerStyleSheet();
   const originalRenderPage = ctx.renderPage;
 
-  ctx.renderPage = () =>
-    originalRenderPage({
-      enhanceApp: (App: AppType) =>
-        function EnhanceApp(props) {
-          return <App {...props} />;
-        },
-    });
+  try {
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+      });
 
-  const initialProps = await Document.getInitialProps(ctx);
-
-  return initialProps;
+    const initialProps = await Document.getInitialProps(ctx);
+    return {
+      ...initialProps,
+      styles: (
+        <>
+          {initialProps.styles}
+          {sheet.getStyleElement()}
+        </>
+      ),
+    };
+  } finally {
+    sheet.seal();
+  }
 };
 
 export default MyDocument;
