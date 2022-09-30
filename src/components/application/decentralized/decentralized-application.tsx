@@ -1,4 +1,6 @@
-import LinkButton from 'src/components/shared/buttons';
+import { ApolloProvider } from '@apollo/client';
+import Button from 'src/components/shared/buttons';
+import DevTheGatheringDecentralizedService from 'src/services/dev-the-gathering/dev-the-gathering-decentralized.service';
 import { Glitch } from 'src/styles/animations';
 import { Flex } from 'src/styles/mixins/flex';
 import styled from 'styled-components';
@@ -51,18 +53,15 @@ const NeonSubtitle = styled.h3`
   margin-bottom: 2rem;
 `;
 
-const HomeHero = () => {
+const DecentralizedApplication = () => {
   return (
-    <Main>
-      <GlitchedTitle data-text="DEV: The Gathering">DEV: The Gathering</GlitchedTitle>
-      <ApplicationDescription>A decentralized/centralized collectible card game developed for learning purposes.</ApplicationDescription>
-      <NeonSubtitle>Which version do you wanna play?</NeonSubtitle>
-      <div>
-        <LinkButton href="/app/centralized">CENTRALIZED</LinkButton>
-        <LinkButton href="/app/decentralized">DECENTRALIZED (CRYPTO)</LinkButton>
-      </div>
-    </Main>
+    <ApolloProvider client={DevTheGatheringDecentralizedService.apolloClient}>
+      <Main>
+        <GlitchedTitle data-text="DEV: The Gathering">DEV: The Gathering Decentralized</GlitchedTitle>
+        <ApplicationDescription>A decentralized collectible card game developed for learning purposes.</ApplicationDescription>
+      </Main>
+    </ApolloProvider>
   );
 };
 
-export default HomeHero;
+export default DecentralizedApplication;

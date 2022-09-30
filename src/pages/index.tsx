@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Hero from 'src/components/home/hero';
+import HomeHero from 'src/components/home/hero';
+import KnowMore from 'src/components/home/know-more';
 
 const Home: NextPage = () => {
   return (
@@ -8,7 +9,8 @@ const Home: NextPage = () => {
       <Head>
         <title>Dev: The Gathering</title>
       </Head>
-      <Hero />
+      <HomeHero />
+      <KnowMore />
     </>
   );
 };
