@@ -35,7 +35,7 @@ const StyledLinkButton = styled.a`
 export type StyledButtonProps = {
   secondary?: boolean;
   children?: ReactNode;
-  loading?: boolean;
+  $loading: boolean;
 };
 //StyledComponent<"button", any, {}, never>
 const StyledButton = styled.button<StyledButtonProps>`
@@ -72,7 +72,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     cursor: default;
   }
 
-  ${(props) => (props.loading ? 'animation-duration: 0.3s !important' : '')};
+  ${(props) => (props.$loading ? 'animation-duration: 0.3s !important' : '')};
 `;
 
 interface LinkButtonProps {
@@ -92,7 +92,7 @@ export interface ButtonProps {
 
 export const Button = ({ onClick, disabled, children, className, secondary, type = 'button', loading = false }: React.PropsWithChildren<ButtonProps>) => {
   return (
-    <StyledButton secondary={secondary} onClick={onClick} className={className} disabled={disabled} loading={loading} type={type}>
+    <StyledButton secondary={secondary} onClick={onClick} className={className} disabled={disabled} $loading={loading} type={type}>
       {children}
     </StyledButton>
   );

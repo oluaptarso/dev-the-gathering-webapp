@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Dispatch, Reducer, SetStateAction, useReducer, useState } from 'react';
+import { Dispatch, Reducer, SetStateAction, useContext, useReducer, useState } from 'react';
 import { Button } from 'src/components/shared/buttons';
 import { FormErrorList, StyledForm } from 'src/components/shared/styled-form';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import AuthenticationCentralizedService from 'src/services/authentication/authentication-centralized.service';
 import { FirebaseErrorsCodeText } from 'src/services/firebase/firebase';
 import ReactLoading from 'react-loading';
+import { ApplicationContext } from 'src/contexts/application';
 
 const StyledSignInForm = styled(StyledForm)`
   input[type='email'] {
@@ -46,6 +47,7 @@ interface LoginErrorState {
 }
 
 const SignInForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAction<boolean>> }) => {
+  const application = useContext(ApplicationContext);  
 
   const [loading, setLoading] = useState(false);
   const [state, setState] = useReducer<Reducer<LoginErrorState, Partial<LoginErrorState>>>((state, newState) => ({ ...state, ...newState }), {
@@ -62,10 +64,14 @@ const SignInForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateActio
     reValidateMode: 'onBlur',
     resolver: yupResolver(ValidationSchema),
   });
+
+  //only load if has an application.
+  if (!application) return <></>;
+
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }: Inputs) => {
     setLoading(true);
-    setState({ hasError: false, errorMessage: '' });    
-    const loginResponse = await AuthenticationCentralizedService.login({ email, password });
+    setState({ hasError: false, errorMessage: '' });
+    const loginResponse = await application.authenticationService.login({ email, password });
     setLoading(false);
     if (!loginResponse.success) {
       setState({ hasError: true, errorMessage: FirebaseErrorsCodeText.getText(loginResponse.error.code) });
@@ -94,7 +100,7 @@ const SignInForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateActio
       </FormErrorList>
       <div className="spacer"></div>
       <Button className="w-100 mb-2" type="submit" loading={loading} disabled={!!Object.keys(errors).length || loading}>
-        {loading ? <ReactLoading type='cylon' color='white' height={32} width={32} /> : "Sign in"}
+        {loading ? <ReactLoading type="cylon" color="white" height={32} width={32} /> : 'Sign in'}
       </Button>
       <Link href="">
         <a

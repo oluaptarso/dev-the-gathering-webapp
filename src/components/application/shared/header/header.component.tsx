@@ -1,13 +1,16 @@
-import Link from "next/link";
-import { useContext } from "react";
-import { AuthContext } from "src/contexts/auth";
-import AuthenticationCentralizedService from "src/services/authentication/authentication-centralized.service";
-import StyledHeader, { StyledDropdownMenu } from "./header.style";
+import Link from 'next/link';
+import { useContext } from 'react';
+import { ApplicationContext } from 'src/contexts/application';
+import { AuthContext } from 'src/contexts/auth';
+import StyledHeader, { StyledDropdownMenu } from './header.style';
 
 const Header = () => {
+  const user = useContext(AuthContext);
+  const application = useContext(ApplicationContext);
 
-  const user = useContext(AuthContext); 
-
+  //only load if has an application.
+  if (!application) return <></>;
+  
   return (
     <StyledHeader className="p-3">
       <div className="container">
@@ -22,7 +25,7 @@ const Header = () => {
               </a>
               <StyledDropdownMenu className="dropdown-menu dropdown-menu-start text-small">
                 <li>
-                  <a className="dropdown-item" href="#" onClick={AuthenticationCentralizedService.logout}>
+                  <a className="dropdown-item" href="#" onClick={application.authenticationService.logout}>
                     Sign out
                   </a>
                 </li>

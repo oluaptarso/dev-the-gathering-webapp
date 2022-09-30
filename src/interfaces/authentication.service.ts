@@ -26,3 +26,7 @@ export default interface IAuthenticationService {
   login: ({ email, password }: ILoginInput) => Promise<ILoginUserOutput>;
   logout: () => void;
 }
+
+export const isAnIAuthenticationService = (obj: any): obj is IAuthenticationService => {
+  return 'createUser' in obj && typeof obj.createUser === 'function';
+}

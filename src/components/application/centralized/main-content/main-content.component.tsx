@@ -6,8 +6,7 @@ import StyledMainContent from "./main-content.style"
 
 const MainContent = () => {
 
-  const user = useContext(AuthContext); 
-  console.log('USER::', user);
+  const user = useContext(AuthContext);
 
   return (
       <StyledMainContent>

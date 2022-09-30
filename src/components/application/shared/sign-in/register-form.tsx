@@ -1,4 +1,4 @@
-import { Dispatch, Reducer, SetStateAction, useEffect, useReducer, useState } from 'react';
+import { Dispatch, Reducer, SetStateAction, useContext, useEffect, useReducer, useState } from 'react';
 import { Button } from 'src/components/shared/buttons';
 import { FormErrorList, StyledForm } from 'src/components/shared/styled-form';
 import styled from 'styled-components';
@@ -8,6 +8,8 @@ import * as yup from 'yup';
 import AuthenticationCentralizedService from 'src/services/authentication/authentication-centralized.service';
 import { FirebaseErrorsCodeText } from 'src/services/firebase/firebase';
 import ReactLoading from 'react-loading';
+import { ApplicationContext } from 'src/contexts/application';
+import IAuthenticationService, { isAnIAuthenticationService } from 'src/interfaces/authentication.service';
 
 const StyledRegisterForm = styled(StyledForm)`
   input#floatingInput {
@@ -48,6 +50,7 @@ interface CreateUserErrorState {
 }
 
 const RegisterForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAction<boolean>> }) => {
+  const application = useContext(ApplicationContext); 
   const [loading, setLoading] = useState(false);
   const [state, setState] = useReducer<Reducer<CreateUserErrorState, Partial<CreateUserErrorState>>>((state, newState) => ({ ...state, ...newState }), {
     hasError: false,
@@ -64,11 +67,19 @@ const RegisterForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAct
     resolver: yupResolver(ValidationSchema),
   });
 
+  //only load if has an application.
+  if (!application) return <></>;
+  // garantees that the right service is used
+  if (!isAnIAuthenticationService(application.authenticationService)) return <></>
+
+  // casts the service to IAuthenticationService
+  const authenticationService = application.authenticationService as IAuthenticationService;
+
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }: Inputs) => {
     setLoading(true);
     setState({ hasError: false, errorMessage: '' });
     setLoading(false);
-    const createUserResponse = await AuthenticationCentralizedService.createUser({ email, password });
+    const createUserResponse = await authenticationService.createUser({ email, password });
     if (!createUserResponse.success) {
       setState({ hasError: true, errorMessage: FirebaseErrorsCodeText.getText(createUserResponse.error.code) });
     }
