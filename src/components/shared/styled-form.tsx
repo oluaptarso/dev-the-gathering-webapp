@@ -1,4 +1,5 @@
 import { Flex } from 'src/styles/mixins/flex';
+import { Glass } from 'src/styles/mixins/glass';
 import styled from 'styled-components';
 
 export const StyledForm = styled.form`
@@ -8,12 +9,7 @@ export const StyledForm = styled.form`
   color: #3c398f;
   ${Flex({ direction: 'column' })}
 
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  ${Glass}
 
   h1 {
     color: white;

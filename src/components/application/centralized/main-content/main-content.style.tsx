@@ -6,16 +6,6 @@ const StyledMainContent = styled.main`
   min-height: calc(100vh - 57px);
   padding: 4rem 1rem;
   color: white;
-
-  div {
-    ${Flex({ direction: 'row', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' })};
-    max-width: 800px;
-
-    @media (max-width: 600px) {
-      width: 100%;
-      flex-direction: column;
-    }
-  }
 `;
 
 export default StyledMainContent;

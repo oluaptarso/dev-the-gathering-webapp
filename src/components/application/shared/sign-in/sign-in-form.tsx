@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import AuthenticationCentralizedService from 'src/services/authentication/authentication-centralized.service';
 import { FirebaseErrorsCodeText } from 'src/services/firebase/firebase';
 import ReactLoading from 'react-loading';
 import { ApplicationContext } from 'src/contexts/application';
