@@ -1,14 +1,16 @@
 import { keyframes } from 'styled-components';
-
-export const Pulse = keyframes`
+export type PulseProps = {
+  color?: string;
+};
+export const Pulse = (props:PulseProps) => keyframes`
   0% {
-    box-shadow: 0 0 4px #fff, inset 0 0 20px 6px #38fbdb;
+    box-shadow: 0 0 4px #fff, inset 0 0 20px 6px ${props.color ? props.color : '#38fbdb'};
   }
   50% {
-    box-shadow: 0 0 4px #fff, inset 0 0 20px 0px #38fbdb;
+    box-shadow: 0 0 4px #fff, inset 0 0 20px 0px ${props.color ? props.color : '#38fbdb'};
   }
   100% {
-    box-shadow: 0 0 4px #fff, inset 0 0 20px 6px #38fbdb;
+    box-shadow: 0 0 4px #fff, inset 0 0 20px 6px ${props.color ? props.color : '#38fbdb'};
   }
 `;
 
