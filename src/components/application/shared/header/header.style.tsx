@@ -10,8 +10,7 @@ const StyledHeader = styled.header`
 
 export const StyledDropdownMenu = styled.ul`
   background: #38fbdb !important;
-  box-shadow: 0 4px 30px rgba(56, 251, 219, .4);
-  
+  box-shadow: 0 4px 30px rgba(56, 251, 219, .4);  
 
   a {
     color:#112b57 !important;
