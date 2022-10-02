@@ -1,11 +1,16 @@
 import IDevTheGatheringService from '../../interfaces/dev-the-gathering.service';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 
 const DevTheGatheringCentralizedService: IDevTheGatheringService = {
-  apolloClient: new ApolloClient({
-    uri: 'https://us-central1-dev-the-gathering.cloudfunctions.net/graphql',
-    cache: new InMemoryCache(),
-  }),
+  getApolloClient: (token: string): ApolloClient<NormalizedCacheObject> => {
+    return new ApolloClient({
+      uri: process.env.NEXT_PUBLIC_CENTRALIZED_GRAPHQL_URL,
+      cache: new InMemoryCache(),
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default DevTheGatheringCentralizedService;

@@ -1,7 +1,8 @@
 import { useEffect, useState, PropsWithChildren } from 'react';
 import { FirebaseAuth } from 'src/services/firebase/firebase';
 import { AuthContext } from 'src/contexts/auth';
-import { ICentralizedAuthenticatedUser } from 'src/services/authentication/authentication-centralized.service';
+import { ICentralizedAuthenticatedUser } from 'src/interfaces/user';
+import { ApplicationTypeEnum } from 'src/enums/application-type.enum';
 
 export const FirebaseAuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<ICentralizedAuthenticatedUser | null>(null);
@@ -12,8 +13,9 @@ export const FirebaseAuthProvider: React.FC<PropsWithChildren> = ({ children }) 
         setUser({
           displayName: user.email || '',
           id: user.uid,
-          token: await user.getIdToken(),
+          token: await user.getIdToken(true),
           emailVerified: user.emailVerified,
+          applicationType: ApplicationTypeEnum.Centralized,
         });
       }
       else{

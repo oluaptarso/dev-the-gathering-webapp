@@ -24,7 +24,8 @@ type MapType = {
 
 const FirebaseErrorsCodeTextMap:MapType = {
   'auth/email-already-in-use': 'Email already in use.',
-  'auth/user-not-found': 'Incorrect email or password.'
+  'auth/user-not-found': 'Incorrect email or password.',
+  'auth/wrong-password': 'Incorrect email or password.'
 }
 
 export const FirebaseErrorsCodeText = {

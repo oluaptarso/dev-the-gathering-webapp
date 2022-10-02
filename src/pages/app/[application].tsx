@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } fro
 import Head from 'next/head';
 import CentralizedApplication from 'src/components/application/centralized/centralized-application';
 import DecentralizedApplication from 'src/components/application/decentralized/decentralized-application';
-import { ApplicationTypeEnum } from '../../enums/application-type-enum';
+import { ApplicationTypeEnum } from '../../enums/application-type.enum';
 
 const Application: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ applicationType }: InferGetStaticPropsType<typeof getStaticProps>) => {
   
