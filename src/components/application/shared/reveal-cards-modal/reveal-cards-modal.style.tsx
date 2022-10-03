@@ -44,9 +44,19 @@ const StyledRevealCardsModal = styled.div<StyledRevealCardsModalProps>`
     .cards-container {
       margin: 0 auto;
       max-width: 960px;
+
+      h2{
+        padding: 0 1rem;
+      }
     }
     .cards-modal-footer {
       ${Flex({ justifyContent: 'center' })};
+    }
+  }
+
+  .scrollbar-content {
+    div:first-child {
+      ${Flex({direction: 'column'})}
     }
   }
 `;

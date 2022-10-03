@@ -1,21 +1,17 @@
-import { Reducer, useContext, useEffect, useReducer, useState } from 'react';
+import { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Button } from 'src/components/shared/buttons';
 import { ApplicationContext } from 'src/contexts/application';
 import { Card } from 'src/entities/card';
 import { CardComponent } from 'src/components/application/shared/card/card';
-import { isAnIAuthenticationService } from 'src/interfaces/authentication.service';
-import StyledCardAlbum from './card-album.styled';
+import StyledCardAlbum from '../../shared/card-album/card-album.styled';
 import { AuthContext } from 'src/contexts/auth';
 import { isAnICentralizedAuthenticatedUser } from 'src/interfaces/user';
-import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { useApolloClient, useQuery } from '@apollo/client';
 import { GET_USER } from 'src/graphql/queries/user';
 import Link from 'next/link';
 import { GET_CARDS } from 'src/graphql/queries/card';
-import ReactLoading from 'react-loading';
-import DevTheGatheringCards, { mergeWithResponseCard } from 'src/providers/dev-the-gathering-cards';
-import { CardRarityEnum } from 'src/enums/card-rarity.enum';
-import { OPEN_BOOSTER_PACK } from 'src/graphql/mutations.ts/card';
-import RevealCardsModal from '../reveal-cards-modal/reveal-cards-modal.component';
+import { mergeWithResponseCard } from 'src/providers/dev-the-gathering-cards';
+import CentralizedRevealCardsModal from '../reveal-cards-modal/reveal-cards-modal.component';
 import LoadingContainer from 'src/components/shared/loading-container';
 import Router from 'next/router';
 
@@ -28,7 +24,7 @@ interface CardAlbumState {
   loading: boolean;
 }
 
-const CardAlbum = () => {
+const CentralizedCardAlbum = () => {
   const user = useContext(AuthContext);
   const application = useContext(ApplicationContext);
   const client = useApolloClient();
@@ -86,17 +82,10 @@ const CardAlbum = () => {
   // only load if has an application.
   if (!application) return <></>;
 
-  const numberOfCards = +(process.env.NEXT_PUBLIC_NUMBER_OF_CARDS || 0);
-  const mockCards: Card[] = [];
-
-  for (let i = 0; i < numberOfCards; i++) {
-    mockCards.push(new Card());
-  }
-
   // if (!isAnIAuthenticationService(application.authenticationService))
   return (
     <StyledCardAlbum>
-      <RevealCardsModal
+      <CentralizedRevealCardsModal
         onClose={() => {
           setState({ openRevealModal: false, loading: true });          
           refetch();
@@ -112,7 +101,7 @@ const CardAlbum = () => {
           </div>
         )}
         <Button
-          disabled={!state.canOpenBoosterPack || !state.emailVerified}
+          disabled={!state.canOpenBoosterPack || !state.emailVerified || loading || state.loading}
           onClick={() => {
             setState({ openRevealModal: !state.openRevealModal });
           }}
@@ -158,4 +147,4 @@ const CardAlbum = () => {
   );
 };
 
-export default CardAlbum;
+export default CentralizedCardAlbum;

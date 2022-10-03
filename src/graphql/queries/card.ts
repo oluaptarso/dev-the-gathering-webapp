@@ -15,3 +15,19 @@ export const GET_CARDS = gql`
     }
   }
 `;
+
+export const GET_CARDS_BY_OWNER = gql`
+  query GetCardsByOwner ($owner: String!) {
+    cards(where: { owner: $owner }) {
+      id
+      externalId
+      owner
+      rarity
+      foil
+      quantity
+      level
+      createdAt
+      updatedAt
+    }
+  }
+`;

@@ -35,14 +35,3 @@ export const StyledForm = styled.form`
     height: 45px;
   }
 `;
-
-export const FormErrorList = styled.ul`
-  text-align:left;
-  list-style:none;
-  padding-left:0.5rem;
-  color:#ff81ac;
-
-  li {
-    min-height: 24px;
-  }
-`;

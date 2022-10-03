@@ -1,3 +1,4 @@
+import MetamaskUserStore from "src/stores/metamask-user";
 import IAuthenticationService, { ILoginUserOutput } from "../../interfaces/authentication.service";
 
 const AuthenticationDecentralizedService: Omit<IAuthenticationService,'createUser'> = {
@@ -8,7 +9,7 @@ const AuthenticationDecentralizedService: Omit<IAuthenticationService,'createUse
     return mock;
   },
   logout: () => {
-    
+    MetamaskUserStore.setUser(null);
   }
 }
 

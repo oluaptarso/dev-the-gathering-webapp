@@ -11,7 +11,8 @@ type StyleCardProps = {
 };
 
 const getRarityColor = (rarity: CardRarityEnum) => {
-  switch (+CardRarityEnum[rarity]) {
+  const verify = typeof rarity == 'number' ? rarity : +CardRarityEnum[rarity];
+  switch (verify) {
     case CardRarityEnum.UNCOMMON:
       return '#24ce6b';
     case CardRarityEnum.RARE:

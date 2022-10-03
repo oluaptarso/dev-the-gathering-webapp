@@ -15,30 +15,32 @@ export const CardComponent = ({ data, canBeFlipped = false, onFlipped }: { data:
   };
 
   useEffect(() => {
-    const currentRef = cardRef.current;
+    if (!canBeFlipped) {
+      const currentRef = cardRef.current;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const normalizedX = e.offsetX / 240;
-      const normalizedY = e.offsetY / 400;
+      const handleMouseMove = (e: MouseEvent) => {
+        const normalizedX = e.offsetX / 240;
+        const normalizedY = e.offsetY / 400;
 
-      if (currentRef) {
-        currentRef.style.transform = `translate3d(${Math.cos(Math.PI * normalizedX) * 5}px, ${Math.cos(Math.PI * normalizedY) * 5}px, 0)`;
-      }
-    };
+        if (currentRef) {
+          currentRef.style.transform = `translate3d(${Math.cos(Math.PI * normalizedX) * 5}px, ${Math.cos(Math.PI * normalizedY) * 5}px, 0)`;
+        }
+      };
 
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (currentRef) {
-        currentRef.style.transform = `none`;
-      }
-    };
+      const handleMouseLeave = (e: MouseEvent) => {
+        if (currentRef) {
+          currentRef.style.transform = `none`;
+        }
+      };
 
-    currentRef?.addEventListener('mousemove', handleMouseMove);
-    currentRef?.addEventListener('mouseleave', handleMouseLeave);
+      currentRef?.addEventListener('mousemove', handleMouseMove);
+      currentRef?.addEventListener('mouseleave', handleMouseLeave);
 
-    return () => {
-      currentRef?.removeEventListener('mousemove', handleMouseMove);
-      currentRef?.removeEventListener('mouseleave', handleMouseLeave);
-    };
+      return () => {
+        currentRef?.removeEventListener('mousemove', handleMouseMove);
+        currentRef?.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    }
   }, [cardRef]);
 
   return (

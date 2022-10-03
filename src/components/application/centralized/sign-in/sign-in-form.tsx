@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Dispatch, Reducer, SetStateAction, useContext, useReducer, useState } from 'react';
 import { Button } from 'src/components/shared/buttons';
-import { FormErrorList, StyledForm } from 'src/components/shared/styled-form';
+import { StyledForm } from 'src/components/shared/styled-form';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,6 +9,8 @@ import * as yup from 'yup';
 import { FirebaseErrorsCodeText } from 'src/services/firebase/firebase';
 import ReactLoading from 'react-loading';
 import { ApplicationContext } from 'src/contexts/application';
+import { ErrorList } from 'src/components/shared/error-list';
+import Spacer from 'src/components/shared/spacer';
 
 const StyledSignInForm = styled(StyledForm)`
   input[type='email'] {
@@ -21,10 +23,6 @@ const StyledSignInForm = styled(StyledForm)`
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-  }
-
-  .spacer {
-    flex: 1;
   }
 `;
 
@@ -81,9 +79,9 @@ const SignInForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateActio
     <StyledSignInForm onSubmit={handleSubmit(onSubmit)}>
       <h1 className="h3 mb-3 fw-normal">Sign in</h1>
       {state.hasError && (
-        <FormErrorList>
+        <ErrorList>
           <li>{state.errorMessage}</li>
-        </FormErrorList>
+        </ErrorList>
       )}
       <div className="form-floating">
         <input type="email" autoFocus className="form-control" id="floatingInput" placeholder="awesome@email.com" {...register('email')} />
@@ -93,11 +91,11 @@ const SignInForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateActio
         <input type="password" className="form-control" id="floatingPassword" placeholder="password" {...register('password')} />
         <label htmlFor="floatingPassword">Password</label>
       </div>
-      <FormErrorList>
+      <ErrorList>
         <li>{errors.email?.message}</li>
         <li>{errors.password?.message}</li>
-      </FormErrorList>
-      <div className="spacer"></div>
+      </ErrorList>
+      <Spacer />
       <Button className="w-100 mb-2" type="submit" loading={loading} disabled={!!Object.keys(errors).length || loading}>
         {loading ? <ReactLoading type="cylon" color="white" height={32} width={32} /> : 'Sign in'}
       </Button>

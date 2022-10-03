@@ -21,7 +21,7 @@ const Header = () => {
           {user && (
             <div className="dropdown text-end">
               <a href="#" className="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                {user.displayName}
+                {user.displayName.length > 21 ? `${user.displayName.substring(0, 18)}...` : user.displayName}
               </a>
               <StyledDropdownMenu className="dropdown-menu dropdown-menu-start text-small">
                 <li>

@@ -1,6 +1,6 @@
 import { Dispatch, Reducer, SetStateAction, useContext, useEffect, useReducer, useState } from 'react';
 import { Button } from 'src/components/shared/buttons';
-import { FormErrorList, StyledForm } from 'src/components/shared/styled-form';
+import { StyledForm } from 'src/components/shared/styled-form';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,6 +10,7 @@ import { FirebaseErrorsCodeText } from 'src/services/firebase/firebase';
 import ReactLoading from 'react-loading';
 import { ApplicationContext } from 'src/contexts/application';
 import IAuthenticationService, { isAnIAuthenticationService } from 'src/interfaces/authentication.service';
+import { ErrorList } from 'src/components/shared/error-list';
 
 const StyledRegisterForm = styled(StyledForm)`
   input#floatingInput {
@@ -89,9 +90,9 @@ const RegisterForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAct
     <StyledRegisterForm onSubmit={handleSubmit(onSubmit)}>
       <h1 className="h3 mb-3 fw-normal">Register</h1>
       {state.hasError && (
-        <FormErrorList>
+        <ErrorList>
           <li>{state.errorMessage}</li>
-        </FormErrorList>
+        </ErrorList>
       )}
       <div className="form-floating">
         <input type="text" autoFocus className="form-control" id="floatingInput" placeholder="name@example.com" {...register('email')} />
@@ -105,11 +106,11 @@ const RegisterForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAct
         <input type="password" className="form-control" id="floatingConfirmPassword" placeholder="Confirm Password" {...register('confirmPassword')} />
         <label htmlFor="floatingConfirmPassword">Confirm Password</label>
       </div>
-      <FormErrorList>
+      <ErrorList>
         <li>{errors.email?.message}</li>
         <li>{errors.password?.message}</li>
         <li>{errors.confirmPassword?.message}</li>
-      </FormErrorList>
+      </ErrorList>
       <Button className="w-100 mb-2" type="submit" loading={loading} disabled={!!Object.keys(errors).length || loading}>
       {loading ? <ReactLoading type='cylon' color='white' height={32} width={32} /> : "Register"}
       </Button>

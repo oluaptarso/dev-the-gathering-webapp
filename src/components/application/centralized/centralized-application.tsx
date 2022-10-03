@@ -6,13 +6,13 @@ import { CentralizedProvider } from 'src/providers/centralized';
 import { FirebaseAuthProvider } from 'src/providers/firebase-auth';
 import DevTheGatheringCentralizedService from 'src/services/dev-the-gathering/dev-the-gathering-centralized.service';
 import Header from '../shared/header/header.component';
-import MainContent from './main-content/main-content.component';
+import CentralizedMainContent from './main-content/main-content.component';
 
 const CentralizedApplication = () => {
   return (
     <CentralizedProvider>
       <Header />
-      <MainContent />
+      <CentralizedMainContent />
     </CentralizedProvider>
   );
 };
