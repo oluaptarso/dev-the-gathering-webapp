@@ -10,7 +10,7 @@ const Home: NextPage = () => {
         <title>Dev: The Gathering</title>
       </Head>
       <HomeHero />
-      <KnowMore />
+      {/* <KnowMore /> */}
     </>
   );
 };

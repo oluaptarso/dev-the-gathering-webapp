@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Document, { Html, Head, Main, NextScript, DocumentContext, DocumentInitialProps } from 'next/document';
-import { AppType } from 'next/dist/shared/lib/utils';
 import { ServerStyleSheet } from 'styled-components';
 
 const MyDocument = (props: DocumentInitialProps) => {

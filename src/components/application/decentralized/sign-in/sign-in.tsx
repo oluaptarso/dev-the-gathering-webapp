@@ -1,7 +1,6 @@
 import { Reducer, useContext, useReducer, useState } from 'react';
 import { Button } from 'src/components/shared/buttons';
 import { StyledForm } from 'src/components/shared/styled-form';
-import styled from 'styled-components';
 import ReactLoading from 'react-loading';
 import { ApplicationContext } from 'src/contexts/application';
 import MetamaskUserStore from 'src/stores/metamask-user';
