@@ -26,7 +26,7 @@ const StyledCardAlbum = styled.div`
     height: 60px;
     animation-duration: 2s;
     animation-iteration-count: infinite;
-    animation-name: ${Pulse({color:'#ffeeba', inset: true})};
+    animation-name: ${Pulse({primaryColor:'#ffeeba', inset: true})};
     animation-timing-function: linear;
     border: 1px solid #ffeeba;
     color:#ffdf7e;

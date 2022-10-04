@@ -1,17 +1,18 @@
 import { keyframes } from 'styled-components';
-export type PulseProps = {
-  color?: string;
+export type PulseProps = {  
+  primaryColor?: string;
+  secondaryColor?: string;
   inset?: boolean;
 };
 export const Pulse = (props:PulseProps) => keyframes`
   0% {
-    box-shadow: 0 0 4px #fff, ${!!props.inset ? 'inset' : ''} 0 0 20px 6px ${!!props.color ? props.color : '#38fbdb'};
+    box-shadow: 0 0 4px ${!!props.secondaryColor ? props.secondaryColor : '#fff'}, ${!!props.inset ? 'inset' : ''} 0 0 20px 6px ${!!props.primaryColor ? props.primaryColor : '#38fbdb'};
   }
   50% {
-    box-shadow: 0 0 4px #fff, ${!!props.inset ? 'inset' : ''} 0 0 20px 0px ${!!props.color ? props.color : '#38fbdb'};
+    box-shadow: 0 0 4px ${!!props.secondaryColor ? props.secondaryColor : '#fff'}, ${!!props.inset ? 'inset' : ''} 0 0 20px 0px ${!!props.primaryColor ? props.primaryColor : '#38fbdb'};
   }
   100% {
-    box-shadow: 0 0 4px #fff, ${!!props.inset ? 'inset' : ''} 0 0 20px 6px ${!!props.color ? props.color : '#38fbdb'};
+    box-shadow: 0 0 4px ${!!props.secondaryColor ? props.secondaryColor : '#fff'}, ${!!props.inset ? 'inset' : ''} 0 0 20px 6px ${!!props.primaryColor ? props.primaryColor : '#38fbdb'};
   }
 `;
 

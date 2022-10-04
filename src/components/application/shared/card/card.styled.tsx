@@ -8,6 +8,7 @@ type StyleCardProps = {
   flipped: boolean;
   canBeFlipped: boolean;
   rarity: CardRarityEnum;
+  imgSrc?: string;
 };
 
 const getRarityColor = (rarity: CardRarityEnum) => {
@@ -39,7 +40,6 @@ const StyledCard = styled.div<StyleCardProps>`
     perspective: 1000px;
     transition: transform 50ms;
     cursor: ${(props) => (!props.flipped && props.canBeFlipped ? 'pointer' : 'default')};
-    
 
     .card-3d-container {
       width: 100%;
@@ -55,7 +55,6 @@ const StyledCard = styled.div<StyleCardProps>`
       .card-back {
         width: 100%;
         height: 100%;
-        ${Glass};
         position: absolute;
         left: 0;
         top: 0;
@@ -63,12 +62,27 @@ const StyledCard = styled.div<StyleCardProps>`
         backface-visibility: hidden;
       }
       .card-front {
+        background-image: ${(props) => (!!props.imgSrc ? `url(${props.imgSrc})` : 'none')};
         transform: ${(props) => (props.canBeFlipped ? 'rotateY(180deg)' : 'none')};
+        font-size: 17px;
+        .level {
+          position: absolute;
+          top: 242px;
+          left: 55px;
+        }
+
+        .quantity {
+          position: absolute;
+          bottom: 36px;
+          right: 90px;
+        }
       }
       .card-back {
+        background-image: url('/cards/back.png');
         transform: ${(props) => (!props.canBeFlipped ? 'rotateY(180deg)' : 'none')};
+        border-radius: 16px;
         &:hover {
-          animation-name: ${(props) => (!props.flipped ? Pulse({ color: getRarityColor(props.rarity) }) : 'none')};
+          animation-name: ${(props) => (!props.flipped ? Pulse({ primaryColor: getRarityColor(props.rarity), secondaryColor: getRarityColor(props.rarity) }) : 'none')};
           animation-duration: 1s;
           animation-iteration-count: infinite;
         }

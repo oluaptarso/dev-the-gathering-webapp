@@ -45,7 +45,7 @@ const DecentralizedRevealCardsModal = ({ show, onClose }: { show: boolean; onClo
       setState({ animate: show, loading: true });
       openBoosterPack();
     } else {
-      setState({ animate: show, loading: true, cards: [], revealedCards: 0 });
+      setState({ animate: show, cards: [], revealedCards: 0, loading: true, hasError: false, waitingCards: false, errorMessage: '' });
     }
   }, [show]);
 
@@ -174,15 +174,15 @@ const DecentralizedRevealCardsModal = ({ show, onClose }: { show: boolean; onClo
                         </div>
                       </>
                     )}
-                    <div className="cards-modal-footer mt-4">                      
-                        <Button
-                          disabled={(state.revealedCards > 0 && state.revealedCards != state.cards.length) || state.waitingCards}
-                          onClick={() => {
-                            setState({ animate: false });
-                          }}
-                        >
-                          Done!
-                        </Button>
+                    <div className="cards-modal-footer mt-4">
+                      <Button
+                        disabled={(state.revealedCards > 0 && state.revealedCards != state.cards.length) || state.waitingCards}
+                        onClick={() => {
+                          setState({ animate: false });
+                        }}
+                      >
+                        Done!
+                      </Button>
                     </div>
                   </>
                 )}

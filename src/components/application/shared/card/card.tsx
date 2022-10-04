@@ -44,11 +44,12 @@ export const CardComponent = ({ data, canBeFlipped = false, onFlipped }: { data:
   }, [cardRef]);
 
   return (
-    <StyledCard flipped={flipped} canBeFlipped={canBeFlipped} rarity={data.rarity} className="col-12 col-md-6 col-lg-4">
+    <StyledCard flipped={flipped} imgSrc={data.imgSrc} canBeFlipped={canBeFlipped} rarity={data.rarity} className="col-12 col-md-6 col-lg-4">
       <div ref={cardRef} className="card-container" onClick={flipCard}>
         <div className="card-3d-container">
           <div className="card-front">
-            {data.number} - {data.name}
+            <div className="level">{data.level}</div>
+            <div className="quantity">{data.quantity > 0 ? `+${data.quantity}` : ''}</div>
           </div>
           <div className="card-back"></div>
         </div>
