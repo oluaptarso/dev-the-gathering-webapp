@@ -3,7 +3,7 @@ import { Glitch } from 'src/styles/animations';
 import { Flex } from 'src/styles/mixins/flex';
 import styled from 'styled-components';
 
-const Main = styled.main`
+const HeroContainer = styled.main`
   ${Flex({ flexGrow: 1, direction: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' })};
   min-height: 100vh;
   padding: 4rem 1rem;
@@ -18,6 +18,9 @@ const Main = styled.main`
     @media (max-width: 600px) {
       width: 100%;
       flex-direction: column;
+      a:first-child{
+        margin-bottom: 1rem;
+      }
     }
   }
 `;
@@ -53,7 +56,7 @@ const NeonSubtitle = styled.h3`
 
 const HomeHero = () => {
   return (
-    <Main>
+    <HeroContainer>
       <GlitchedTitle data-text="DEV: The Gathering">DEV: The Gathering</GlitchedTitle>
       <ApplicationDescription>A decentralized/centralized collectible card game developed for learning purposes.</ApplicationDescription>
       <NeonSubtitle>Which version do you wanna play?</NeonSubtitle>
@@ -61,7 +64,7 @@ const HomeHero = () => {
         <LinkButton href="/app/centralized">CENTRALIZED</LinkButton>
         <LinkButton href="/app/decentralized">DECENTRALIZED (CRYPTO)</LinkButton>
       </div>
-    </Main>
+    </HeroContainer>
   );
 };
 

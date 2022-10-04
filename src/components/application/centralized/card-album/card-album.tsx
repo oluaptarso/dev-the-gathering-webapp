@@ -64,7 +64,6 @@ const CentralizedCardAlbum = () => {
   }, []);
 
   useEffect(() => {
-
     if (data) {
       let cards: Card[] = [];
       data.cards.forEach((card: Card) => {
@@ -87,20 +86,23 @@ const CentralizedCardAlbum = () => {
     <StyledCardAlbum>
       <CentralizedRevealCardsModal
         onClose={() => {
-          setState({ openRevealModal: false, loading: true });          
+          setState({ openRevealModal: false, loading: true });
           refetch();
           fetchUserData();
         }}
         show={state.openRevealModal}
       />
 
-      <div className={`container mb-4 d-flex ${!!state.lastBoosterPackOpenedAt ? 'justify-content-between' : 'justify-content-end'} p-0`}>
+      <div
+        className={`container mb-4 d-flex flex-column flex-sm-row ${!!state.lastBoosterPackOpenedAt ? 'justify-content-end align-items-end justify-content-sm-between' : 'align-items-end justify-content-end'} p-0`}
+      >
         {!state.canOpenBoosterPack && state.lastBoosterPackOpenedAt && (
           <div className="booster-pack-already-opened-alert" role="alert">
             You already have opened your booster pack today, please, come back tomorrow.
           </div>
         )}
         <Button
+          className="open-booster-button"
           disabled={!state.canOpenBoosterPack || !state.emailVerified || loading || state.loading}
           onClick={() => {
             setState({ openRevealModal: !state.openRevealModal });
@@ -137,7 +139,13 @@ const CentralizedCardAlbum = () => {
             <h5 className="mb-5 mt-4">
               If you verified your email, please refresh the page or{' '}
               <Link href={'#'}>
-                <a onClick={()=> {Router.reload()}}>click here.</a>
+                <a
+                  onClick={() => {
+                    Router.reload();
+                  }}
+                >
+                  click here.
+                </a>
               </Link>
             </h5>
           </>

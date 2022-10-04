@@ -11,11 +11,18 @@ const StyledCardAlbum = styled.div`
     border-radius: 5px;
     padding: var(--bs-gutter-x);
     z-index:1;
+    min-height: 400px;
+  }
+
+  .open-booster-button{
+    margin-left:1rem;
+    @media (max-width: 575px) {
+      margin-top:1rem;
+    }
   }
 
   .booster-pack-already-opened-alert {
     width: 100%;
-    margin-right: 1rem;
     height: 60px;
     animation-duration: 2s;
     animation-iteration-count: infinite;
@@ -26,6 +33,7 @@ const StyledCardAlbum = styled.div`
     opacity:0.8;
     ${Flex({alignItems: 'center', direction: 'column', justifyContent: 'center'})};
     border-radius: 10px;
+    padding:1rem;
   }
 `;
 
