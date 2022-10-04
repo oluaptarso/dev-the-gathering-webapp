@@ -50,7 +50,6 @@ const AuthenticationCentralizedService: IAuthenticationService = {
     return response;
   },
   logout: () => {
-    console.log('logout');
     signOut(FirebaseService.getAuthService());
   },
 };
