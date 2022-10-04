@@ -1,4 +1,4 @@
-import * as firebase from 'Firebase/app';
+import * as firebase from 'firebase/app';
 import { Auth, getAuth } from 'firebase/auth';
 import IFirebaseService from 'src/interfaces/firebase.service';
 
