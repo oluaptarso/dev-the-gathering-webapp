@@ -1,5 +1,5 @@
 import { CardRarityEnum } from 'src/enums/card-rarity.enum';
-import { Pulse } from 'src/styles/animations';
+import { Glitch, GlitchWithInterval, Pulse } from 'src/styles/animations';
 import { Flex } from 'src/styles/mixins/flex';
 import { Glass } from 'src/styles/mixins/glass';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ type StyleCardProps = {
   canBeFlipped: boolean;
   rarity: CardRarityEnum;
   imgSrc?: string;
+  foil: boolean;
 };
 
 const getRarityColor = (rarity: CardRarityEnum) => {
@@ -65,6 +66,21 @@ const StyledCard = styled.div<StyleCardProps>`
         background-image: ${(props) => (!!props.imgSrc ? `url(${props.imgSrc})` : 'none')};
         transform: ${(props) => (props.canBeFlipped ? 'rotateY(180deg)' : 'none')};
         font-size: 17px;
+        border-radius: 16px;
+        animation-name: ${(props) => (props.foil ? Pulse({ primaryColor: getRarityColor(props.rarity), secondaryColor: 'gold' }) : 'none')};
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+
+        .foil-glitch {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background-image: ${(props) => (!!props.imgSrc ? `url(${props.imgSrc})` : 'none')};
+          animation: ${(props) => (props.foil ? GlitchWithInterval : 'none')} 6s linear infinite alternate;
+        }
+
         .level {
           position: absolute;
           top: 242px;
