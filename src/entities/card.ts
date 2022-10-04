@@ -1,6 +1,7 @@
 import { CardRarityEnum } from 'src/enums/card-rarity.enum';
+import ICard from 'src/interfaces/card';
 
-export class Card {
+export class Card implements ICard {
   id = '0';
   externalId = 0;
   number = 0;
