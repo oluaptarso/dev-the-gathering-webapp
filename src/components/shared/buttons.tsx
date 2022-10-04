@@ -52,7 +52,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   font-size: 18px;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  animation-name: ${(props) => (props.secondary ? Pulse({ color: '#ff7fab', inset: true }) : Pulse({ inset: true }))};
+  animation-name: ${(props) => (props.secondary ? Pulse({ primaryColor: '#ff7fab', inset: true }) : Pulse({ inset: true }))};
   animation-timing-function: linear;
   text-decoration: none;
   background: transparent;

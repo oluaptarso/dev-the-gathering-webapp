@@ -7,6 +7,10 @@ export const StyledForm = styled.form`
   // min-height: 450px;
   padding: 15px;
   color: #3c398f;
+  margin-top: 150px;
+  @media (max-width: 600px) {
+    margin-top: 50px;
+    }
   ${Flex({ direction: 'column' })}
 
   ${Glass}

@@ -41,7 +41,7 @@ export const CardComponent = ({ data, canBeFlipped = false, onFlipped }: { data:
         currentRef?.removeEventListener('mouseleave', handleMouseLeave);
       };
     }
-  }, [cardRef]);
+  }, [canBeFlipped, cardRef]);
 
   return (
     <StyledCard flipped={flipped} foil={data.foil} imgSrc={data.imgSrc} canBeFlipped={canBeFlipped} rarity={data.rarity} className="col-12 col-md-6 col-lg-4">
