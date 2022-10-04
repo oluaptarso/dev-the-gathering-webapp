@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { FirebaseErrorsCodeText } from 'src/services/firebase/firebase';
+import FirebaseService from 'src/services/firebase/firebase.service';
 import ReactLoading from 'react-loading';
 import { ApplicationContext } from 'src/contexts/application';
 import { ErrorList } from 'src/components/shared/error-list';
@@ -71,7 +71,7 @@ const SignInForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateActio
     const loginResponse = await application.authenticationService.login({ email, password });
     setLoading(false);
     if (!loginResponse.success) {
-      setState({ hasError: true, errorMessage: FirebaseErrorsCodeText.getText(loginResponse.error.code) });
+      setState({ hasError: true, errorMessage: FirebaseService.getFirebaseErrorTextByKey(loginResponse.error.code) });
     }
   };
 

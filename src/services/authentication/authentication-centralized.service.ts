@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailA
 import { ApplicationTypeEnum } from 'src/enums/application-type.enum';
 import { ICentralizedAuthenticatedUser } from 'src/interfaces/user';
 import IAuthenticationService, { ICreateUserInput, ICreateUserOutput, ILoginInput, ILoginUserOutput } from '../../interfaces/authentication.service';
-import { FirebaseAuth } from '../firebase/firebase';
+import FirebaseService from '../firebase/firebase.service';
 
 export interface ICentralizedCreateUserOutput extends Omit<ICreateUserOutput, 'user'> {
   user?: ICentralizedAuthenticatedUser;
@@ -15,7 +15,7 @@ const AuthenticationCentralizedService: IAuthenticationService = {
     };
 
     try {
-      const res = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
+      const res = await createUserWithEmailAndPassword(FirebaseService.getAuthService(), email, password);
       const user = res.user;
       await sendEmailVerification(user);
 
@@ -40,7 +40,7 @@ const AuthenticationCentralizedService: IAuthenticationService = {
     };
 
     try {
-      await signInWithEmailAndPassword(FirebaseAuth, email, password);
+      await signInWithEmailAndPassword(FirebaseService.getAuthService(), email, password);
     } catch (error) {
       console.error(error);
       response.success = false;
@@ -51,7 +51,7 @@ const AuthenticationCentralizedService: IAuthenticationService = {
   },
   logout: () => {
     console.log('logout');
-    signOut(FirebaseAuth);
+    signOut(FirebaseService.getAuthService());
   },
 };
 

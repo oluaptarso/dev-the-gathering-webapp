@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { FirebaseErrorsCodeText } from 'src/services/firebase/firebase';
+import FirebaseService from 'src/services/firebase/firebase.service';
 import ReactLoading from 'react-loading';
 import { ApplicationContext } from 'src/contexts/application';
 import IAuthenticationService, { isAnIAuthenticationService } from 'src/interfaces/authentication.service';
@@ -81,7 +81,7 @@ const RegisterForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAct
     setLoading(false);
     const createUserResponse = await authenticationService.createUser({ email, password });
     if (!createUserResponse.success) {
-      setState({ hasError: true, errorMessage: FirebaseErrorsCodeText.getText(createUserResponse.error.code) });
+      setState({ hasError: true, errorMessage: FirebaseService.getFirebaseErrorTextByKey(createUserResponse.error.code) });
     }
   };
 
