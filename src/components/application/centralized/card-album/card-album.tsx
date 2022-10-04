@@ -98,7 +98,7 @@ const CentralizedCardAlbum = () => {
       >
         {!state.canOpenBoosterPack && state.lastBoosterPackOpenedAt && (
           <div className="booster-pack-already-opened-alert" role="alert">
-            You already have opened your booster pack today, please, come back tomorrow.
+            You have already opened your booster pack today. Please, come back tomorrow.
           </div>
         )}
         <Button

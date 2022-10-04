@@ -58,7 +58,7 @@ const HomeHero = () => {
   return (
     <HeroContainer>
       <GlitchedTitle data-text="DEV: The Gathering">DEV: The Gathering</GlitchedTitle>
-      <ApplicationDescription>A decentralized/centralized collectible card game developed for learning purposes.</ApplicationDescription>
+      <ApplicationDescription>A decentralized/centralized collectible card game.</ApplicationDescription>
       <NeonSubtitle>Which version do you wanna play?</NeonSubtitle>
       <div>
         <LinkButton href="/app/centralized">CENTRALIZED</LinkButton>

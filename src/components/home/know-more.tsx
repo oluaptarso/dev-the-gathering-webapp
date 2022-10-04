@@ -33,7 +33,7 @@ const Section = styled.section`
     .epic-label,
     .legendary-label {
       padding: 2px 4px;
-      border-radius:3px;
+      border-radius: 3px;
     }
 
     .common-label {
@@ -109,14 +109,14 @@ const KnowMore = () => {
           The decentralized version uses a Subgraph in The Graph for blockchain data indexation, Polygon as layer 2 Ethereum network, chainlink as oracle provider, and Solidity to
           develop the smart contract.
         </p>
-        <h2>Who is behind this project, and what did you want to learn?</h2>
+        <h2>Who is behind this project, and what&apos;s it&apos;s purpose?</h2>
         <p>
-          My name is Paulo Tarso, I&apos;m a sênior full-stack developer from Brazil, for that project I chose only technologies that I didn&apos;t know or I did want to improve.
-          <br />I had prior experience with Boostrap, Typescript, and React with javascript, but I wanted to try React with Typescript and Next.js. Besides that, everything was new
-          to me.
+          My name is Paulo Tarso. I&apos;m a senior full-stack developer from Brazil. For this project, I decided to go for technologies I&apos;m new to, so it was a learning
+          effort aiming to improve my knowledge of the stack and technology.
           <br />
-          It took me almost two weeks to learn and develop everything. It&apos;s not a finished project. There&apos;s a lot of polishing, tests, and refactoring, but looking as an
-          MVP for learning, I think it&apos;s okay.
+          While I&apos;m well versed in React with javascript, Typescript, and Bootstrap, there was still much room to improve and learn React with Typescript and Next.js.
+          <br />
+          All the other technologies were my learning target, being my first time dealing with them.
         </p>
         <h2>There&apos;s a public source code?</h2>
         <p>Yeah, you can check it out on GitHub:</p>
