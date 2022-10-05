@@ -104,7 +104,7 @@ const KnowMore = () => {
         <p>
           The web application uses React with Next.js, Typescript, styled-components, Bootstrap, Apollo Client, Firebase, and Ethers.js.
           <br />
-          The centralized API uses an Apollo Server running on Firebase functions, Firebase Authentication to handle authentication, and Firebase Firestore as a document database.
+          The centralized API uses an Apollo Server running on Firebase Cloud Functions, Firebase Authentication to handle authentication, and Firebase Firestore as a document database.
           <br />
           The decentralized version uses a Subgraph in The Graph for blockchain data indexation, Polygon as layer 2 Ethereum network, chainlink as oracle provider, and Solidity to
           develop the smart contract.
