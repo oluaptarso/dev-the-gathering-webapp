@@ -3,9 +3,8 @@
 
 Check out the live version on https://www.devthegathering.com.
 
-Here you can find the repository of the web application. 
+Here you can find the repository of the web application.
 
-## Technologies
 
 The web application of DEV: The Gathering uses the following tech stack:
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces;
@@ -31,5 +30,10 @@ And to run the development server:
 npm dev
 # or
 yarn dev
-``` 
+```
+
+You can check it out the others repositories for the:
+- [Smart Contract](https://github.com/oluaptarso/dev-the-gathering-smart-contract);
+- [Subgraph](https://github.com/oluaptarso/dev-the-gathering-subgraph);
+- [Centralized APIs](https://github.com/oluaptarso/dev-the-gathering-server).
 
