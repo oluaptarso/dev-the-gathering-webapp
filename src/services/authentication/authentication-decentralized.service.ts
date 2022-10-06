@@ -1,6 +1,6 @@
 import { ApplicationTypeEnum } from 'src/enums/application-type.enum';
 import MetamaskUserStore from 'src/stores/metamask-user';
-import IAuthenticationService, { IDecentralizedAuthenticationService, ILoginUserOutput, ServiceTypeEnum } from '../../interfaces/authentication.service';
+import { IDecentralizedAuthenticationService, ILoginUserOutput, ServiceTypeEnum } from '../../interfaces/authentication.service';
 
 const AuthenticationDecentralizedService: IDecentralizedAuthenticationService = {
   login: async (): Promise<ILoginUserOutput> => {
