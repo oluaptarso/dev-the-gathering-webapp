@@ -21,10 +21,25 @@ export interface ILoginUserOutput {
   error?: any;
 }
 
+export enum ServiceTypeEnum {
+  DecentralizedAuthenticationService,
+  CentralizedAuthenticationService
+};
+
 export default interface IAuthenticationService {
   createUser: ({ email, password }: ICreateUserInput) => Promise<ICreateUserOutput>;
   login: ({ email, password }: ILoginInput) => Promise<ILoginUserOutput>;
   logout: () => void;
+}
+
+export interface IDecentralizedAuthenticationService extends Omit<IAuthenticationService,'createUser' | 'login'> {  
+  login: () => Promise<ILoginUserOutput>;
+  logout: () => void;
+  type:ServiceTypeEnum;
+}
+
+export const isAnIDecentralizedAuthenticationService = (obj: any): obj is IDecentralizedAuthenticationService => {
+  return 'type' in obj && obj.type == ServiceTypeEnum.DecentralizedAuthenticationService;
 }
 
 export const isAnIAuthenticationService = (obj: any): obj is IAuthenticationService => {

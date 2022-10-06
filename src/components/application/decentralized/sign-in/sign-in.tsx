@@ -7,6 +7,7 @@ import MetamaskUserStore from 'src/stores/metamask-user';
 import { ApplicationTypeEnum } from 'src/enums/application-type.enum';
 import { ErrorList } from 'src/components/shared/error-list';
 import Spacer from 'src/components/shared/spacer';
+import { isAnIDecentralizedAuthenticationService } from 'src/interfaces/authentication.service';
 
 interface LoginErrorState {
   hasError: boolean;
@@ -25,21 +26,17 @@ const DecentralizedSignIn = () => {
   //only load if has an application.
   if (!application) return <></>;
 
+  //only load if isAnIDecentralizedAuthenticationService
+  if (!isAnIDecentralizedAuthenticationService(application.authenticationService)) return <></>;
+
   const connectWallet = async () => {
     try {
-      const ethereum = global?.window?.ethereum;
+      if (isAnIDecentralizedAuthenticationService(application.authenticationService)) {
+        const loginResponse = await application.authenticationService.login();
 
-      if (ethereum && ethereum.request) {
-        const accounts = await ethereum.request({
-          method: 'eth_requestAccounts',
-        });
-        MetamaskUserStore.setUser({
-          applicationType: ApplicationTypeEnum.Decentralized,
-          displayName: accounts[0],
-          id: accounts[0],
-        });
-      } else {
-        setState({ hasError: true, errorMessage: 'Please, install the Metamask wallet.' });
+        if (!loginResponse.success) {
+          setState({ hasError: true, errorMessage: loginResponse.error.errorMessage });
+        }
       }
     } catch (error: any) {
       if (error && typeof error.message === 'string') {
