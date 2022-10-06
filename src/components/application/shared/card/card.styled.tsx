@@ -1,7 +1,6 @@
 import { CardRarityEnum } from 'src/enums/card-rarity.enum';
-import { Glitch, GlitchWithInterval, Pulse } from 'src/styles/animations';
+import { GlitchWithInterval, Pulse } from 'src/styles/animations';
 import { Flex } from 'src/styles/mixins/flex';
-import { Glass } from 'src/styles/mixins/glass';
 import styled from 'styled-components';
 
 type StyleCardProps = {
@@ -10,22 +9,6 @@ type StyleCardProps = {
   rarity: CardRarityEnum;
   imgSrc?: string;
   foil: boolean;
-};
-
-const getRarityColor = (rarity: CardRarityEnum) => {
-  const verify = typeof rarity == 'number' ? rarity : +CardRarityEnum[rarity];
-  switch (verify) {
-    case CardRarityEnum.UNCOMMON:
-      return '#24ce6b';
-    case CardRarityEnum.RARE:
-      return '#2473ce';
-    case CardRarityEnum.EPIC:
-      return '#a624ce';
-    case CardRarityEnum.LEGENDARY:
-      return '#ceb524';
-    default:
-      return '#c9c9c9';
-  }
 };
 
 const StyledCard = styled.div<StyleCardProps>`
@@ -67,7 +50,7 @@ const StyledCard = styled.div<StyleCardProps>`
         transform: ${(props) => (props.canBeFlipped ? 'rotateY(180deg)' : 'none')};
         font-size: 17px;
         border-radius: 16px;
-        animation-name: ${(props) => (props.foil ? Pulse({ primaryColor: getRarityColor(props.rarity), secondaryColor: 'gold' }) : 'none')};
+        animation-name: ${(props) => (props.foil ? Pulse({ primaryColor: `var(--rarity-color-${props.rarity})`, secondaryColor: 'gold' }) : 'none')};
         animation-duration: 1s;
         animation-iteration-count: infinite;
 
@@ -98,7 +81,7 @@ const StyledCard = styled.div<StyleCardProps>`
         transform: ${(props) => (!props.canBeFlipped ? 'rotateY(180deg)' : 'none')};
         border-radius: 16px;
         &:hover {
-          animation-name: ${(props) => (!props.flipped ? Pulse({ primaryColor: getRarityColor(props.rarity), secondaryColor: getRarityColor(props.rarity) }) : 'none')};
+          animation-name: ${(props) => (!props.flipped ? Pulse({ primaryColor: `var(--rarity-color-${props.rarity})`, secondaryColor: `var(--rarity-color-${props.rarity})` }) : 'none')};
           animation-duration: 1s;
           animation-iteration-count: infinite;
         }

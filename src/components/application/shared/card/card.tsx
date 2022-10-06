@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Card as CardEntity } from 'src/entities/card';
+import { CardRarityEnum } from 'src/enums/card-rarity.enum';
 import StyledCard from './card.styled';
 
 export const CardComponent = ({ data, canBeFlipped = false, onFlipped }: { data: CardEntity; canBeFlipped?: boolean; onFlipped?: () => void }) => {
@@ -44,7 +45,7 @@ export const CardComponent = ({ data, canBeFlipped = false, onFlipped }: { data:
   }, [canBeFlipped, cardRef]);
 
   return (
-    <StyledCard flipped={flipped} foil={data.foil} imgSrc={data.imgSrc} canBeFlipped={canBeFlipped} rarity={data.rarity} className="col-12 col-md-6 col-lg-4">
+    <StyledCard flipped={flipped} foil={data.foil} imgSrc={data.imgSrc} canBeFlipped={canBeFlipped} rarity={+CardRarityEnum[data.rarity]} className="col-12 col-md-6 col-lg-4">
       <div ref={cardRef} className="card-container" onClick={flipCard}>
         <div className="card-3d-container">
           <div className="card-front">

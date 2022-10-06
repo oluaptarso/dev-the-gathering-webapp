@@ -23,6 +23,15 @@ export const Globals = createGlobalStyle`
     }
   }
 
+  :root {
+    --rarity-color-0: #c9c9c9;
+    --rarity-color-1: #24ce6b;
+    --rarity-color-2: #2473ce;
+    --rarity-color-3: #a624ce;
+    --rarity-color-4: #ceb524;
+  }
+  
+
   // anything else you would like to include
 `;
 
