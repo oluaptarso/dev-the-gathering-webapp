@@ -9,7 +9,7 @@ import FirebaseService from 'src/services/firebase/firebase.service';
 import ReactLoading from 'react-loading';
 import { ApplicationContext } from 'src/contexts/application';
 import IAuthenticationService, { isAnIAuthenticationService } from 'src/interfaces/authentication.service';
-import { ErrorList } from 'src/components/shared/error-list';
+import { ErrorList } from 'src/components/shared/error-list/error-list';
 
 const StyledRegisterForm = styled(StyledForm)`
   input#floatingInput {
@@ -50,7 +50,7 @@ interface CreateUserErrorState {
 }
 
 const RegisterForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAction<boolean>> }) => {
-  const application = useContext(ApplicationContext); 
+  const application = useContext(ApplicationContext);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useReducer<Reducer<CreateUserErrorState, Partial<CreateUserErrorState>>>((state, newState) => ({ ...state, ...newState }), {
     hasError: false,
@@ -70,7 +70,7 @@ const RegisterForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAct
   //only load if has an application.
   if (!application) return <></>;
   // garantees that the right service is used
-  if (!isAnIAuthenticationService(application.authenticationService)) return <></>
+  if (!isAnIAuthenticationService(application.authenticationService)) return <></>;
 
   // casts the service to IAuthenticationService
   const authenticationService = application.authenticationService as IAuthenticationService;
@@ -88,11 +88,7 @@ const RegisterForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAct
   return (
     <StyledRegisterForm onSubmit={handleSubmit(onSubmit)}>
       <h1 className="h3 mb-3 fw-normal">Register</h1>
-      {state.hasError && (
-        <ErrorList>
-          <li>{state.errorMessage}</li>
-        </ErrorList>
-      )}
+      {state.hasError && <ErrorList errors={[state.errorMessage]} />}
       <div className="form-floating">
         <input type="text" autoFocus className="form-control" id="floatingInput" placeholder="name@example.com" {...register('email')} />
         <label htmlFor="floatingInput">Email address</label>
@@ -105,13 +101,9 @@ const RegisterForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAct
         <input type="password" className="form-control" id="floatingConfirmPassword" placeholder="Confirm Password" {...register('confirmPassword')} />
         <label htmlFor="floatingConfirmPassword">Confirm Password</label>
       </div>
-      <ErrorList>
-        <li>{errors.email?.message}</li>
-        <li>{errors.password?.message}</li>
-        <li>{errors.confirmPassword?.message}</li>
-      </ErrorList>
+      <ErrorList errors={[errors.email?.message, errors.password?.message, errors.confirmPassword?.message]} />      
       <Button className="w-100 mb-2" type="submit" loading={loading} disabled={!!Object.keys(errors).length || loading}>
-      {loading ? <ReactLoading type='cylon' color='white' height={32} width={32} /> : "Register"}
+        {loading ? <ReactLoading type="cylon" color="white" height={32} width={32} /> : 'Register'}
       </Button>
       <Button
         secondary={true}

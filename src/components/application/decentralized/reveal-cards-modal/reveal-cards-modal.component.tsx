@@ -7,7 +7,7 @@ import { mergeWithResponseCard } from 'src/providers/dev-the-gathering-cards';
 import { CardComponent } from '../../shared/card/card';
 import { Scrollbars } from 'react-custom-scrollbars';
 import LoadingContainer from 'src/components/shared/loading-container';
-import { ErrorList } from 'src/components/shared/error-list';
+import { ErrorList } from 'src/components/shared/error-list/error-list';
 import { ApplicationContext } from 'src/contexts/application';
 import Spacer from 'src/components/shared/spacer';
 import { BigNumber } from 'ethers';
@@ -144,9 +144,7 @@ const DecentralizedRevealCardsModal = ({ show, onClose }: { show: boolean; onClo
                 {state.hasError ? (
                   <>
                     <h2>Something went wrong :(</h2>
-                    <ErrorList centerText={true}>
-                      <li>{state.errorMessage}</li>
-                    </ErrorList>
+                    <ErrorList textAlign='center' errors={[state.errorMessage]} />
                     <Spacer />
                     <div className="cards-modal-footer mt-4">
                       <Button

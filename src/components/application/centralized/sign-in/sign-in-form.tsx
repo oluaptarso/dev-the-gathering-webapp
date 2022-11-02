@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import FirebaseService from 'src/services/firebase/firebase.service';
 import ReactLoading from 'react-loading';
 import { ApplicationContext } from 'src/contexts/application';
-import { ErrorList } from 'src/components/shared/error-list';
+import { ErrorList } from 'src/components/shared/error-list/error-list';
 import Spacer from 'src/components/shared/spacer';
 
 const StyledSignInForm = styled(StyledForm)`
@@ -44,7 +44,7 @@ interface LoginErrorState {
 }
 
 const SignInForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateAction<boolean>> }) => {
-  const application = useContext(ApplicationContext);  
+  const application = useContext(ApplicationContext);
 
   const [loading, setLoading] = useState(false);
   const [state, setState] = useReducer<Reducer<LoginErrorState, Partial<LoginErrorState>>>((state, newState) => ({ ...state, ...newState }), {
@@ -78,11 +78,7 @@ const SignInForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateActio
   return (
     <StyledSignInForm onSubmit={handleSubmit(onSubmit)}>
       <h1 className="h3 mb-3 fw-normal">Sign in</h1>
-      {state.hasError && (
-        <ErrorList>
-          <li>{state.errorMessage}</li>
-        </ErrorList>
-      )}
+      {state.hasError && <ErrorList errors={[state.errorMessage]} />}
       <div className="form-floating">
         <input type="email" autoFocus className="form-control" id="floatingInput" placeholder="awesome@email.com" {...register('email')} />
         <label htmlFor="floatingInput">Email address</label>
@@ -91,10 +87,7 @@ const SignInForm = ({ setRegistering }: { setRegistering: Dispatch<SetStateActio
         <input type="password" className="form-control" id="floatingPassword" placeholder="password" {...register('password')} />
         <label htmlFor="floatingPassword">Password</label>
       </div>
-      <ErrorList>
-        <li>{errors.email?.message}</li>
-        <li>{errors.password?.message}</li>
-      </ErrorList>
+      <ErrorList errors={[errors.email?.message, errors.password?.message]} />
       <Spacer />
       <Button className="w-100 mb-2" type="submit" loading={loading} disabled={!!Object.keys(errors).length || loading}>
         {loading ? <ReactLoading type="cylon" color="white" height={32} width={32} /> : 'Sign in'}
