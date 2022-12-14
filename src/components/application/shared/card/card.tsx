@@ -1,7 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import { Card as CardEntity } from 'src/entities/card';
+import { Container3D } from './card-3d-container';
+import { CardBack } from './card-back';
+import { Container } from './card-container';
+import { CardFront } from './card-front';
 import { CardRarityEnum } from 'src/enums/card-rarity.enum';
-import StyledCard from './card.styled';
+import { Flex } from 'src/styles/mixins/flex';
+import styled, { css } from 'styled-components';
+
+export const cardFrontBackSharedStyle = css`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+`;
+
+const StyledCard = styled.div`
+  ${Flex({ alignItems: 'center', justifyContent: 'center' })}
+  padding:calc(var(--bs-gutter-x) * .5);
+  margin: 0;
+`;
 
 export const CardComponent = ({ data, canBeFlipped = false, onFlipped }: { data: CardEntity; canBeFlipped?: boolean; onFlipped?: () => void }) => {
   const [flipped, setFlipped] = useState(false);
@@ -44,23 +65,16 @@ export const CardComponent = ({ data, canBeFlipped = false, onFlipped }: { data:
     }
   }, [canBeFlipped, cardRef]);
 
+  const normalizedRarity = +CardRarityEnum[data.rarity];
+
   return (
-    <StyledCard flipped={flipped} foil={data.foil} imgSrc={data.imgSrc} canBeFlipped={canBeFlipped} rarity={+CardRarityEnum[data.rarity]} className="col-12 col-md-6 col-lg-4">
-      <div ref={cardRef} className="card-container" onClick={flipCard}>
-        <div className="card-3d-container">
-          <div className="card-front">
-            <div className="level">{data.level}</div>
-            <div className="quantity">{data.quantity > 0 ? `+${data.quantity}` : ''}</div>
-            {data.foil && (
-              <div className="foil-glitch">
-                <div className="level">{data.level}</div>
-                <div className="quantity">{data.quantity > 0 ? `+${data.quantity}` : ''}</div>
-              </div>
-            )}
-          </div>
-          <div className="card-back"></div>
-        </div>
-      </div>
+    <StyledCard className="col-12 col-md-6 col-lg-4">
+      <Container flipped={flipped} canBeFlipped={canBeFlipped} ref={cardRef} onClick={flipCard}>
+        <Container3D flipped={flipped}>
+          <CardFront card={data} flipped={flipped} canBeFlipped={canBeFlipped} />
+          <CardBack flipped={flipped} canBeFlipped={canBeFlipped} rarity={normalizedRarity} />
+        </Container3D>
+      </Container>
     </StyledCard>
   );
 };
