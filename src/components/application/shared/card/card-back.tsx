@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { cardFrontBackSharedStyle } from './card';
 import { CardRarityEnum } from 'src/enums/card-rarity.enum';
 import { Pulse } from 'src/styles/animations';
 
@@ -11,7 +10,13 @@ type StyleProps = {
 };
 
 const StyledCardBack = styled.div<StyleProps>`
-  ${cardFrontBackSharedStyle};
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   background-image: url('/cards/back.png');
   transform: ${(props) => (!props.canBeFlipped ? 'rotateY(180deg)' : 'none')};
   border-radius: 16px;

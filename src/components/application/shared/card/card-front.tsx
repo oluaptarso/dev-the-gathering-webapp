@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Card as CardEntity } from 'src/entities/card';
 import { CardRarityEnum } from 'src/enums/card-rarity.enum';
 import { Pulse, GlitchWithInterval } from 'src/styles/animations';
-import { cardFrontBackSharedStyle } from './card';
 
 type StyleProps = {
   flipped: boolean;
@@ -14,7 +13,13 @@ type StyleProps = {
 };
 
 const StyledCardFront = styled.div<StyleProps>`
-  ${cardFrontBackSharedStyle};
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   background-image: ${(props) => (!!props.imgSrc ? `url(${props.imgSrc})` : 'none')};
   transform: ${(props) => (props.canBeFlipped ? 'rotateY(180deg)' : 'none')};
   font-size: 17px;
