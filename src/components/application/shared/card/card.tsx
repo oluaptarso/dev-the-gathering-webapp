@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Card as CardEntity } from 'src/entities/card';
 import { Container3D } from './card-3d-container';
 import { CardBack } from './card-back';
@@ -7,16 +7,7 @@ import { CardFront } from './card-front';
 import { CardRarityEnum } from 'src/enums/card-rarity.enum';
 import { Flex } from 'src/styles/mixins/flex';
 import styled, { css } from 'styled-components';
-
-export const cardFrontBackSharedStyle = css`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-`;
+import { useMouseEvents } from 'src/hooks/useMouseEvents';
 
 const StyledCard = styled.div`
   ${Flex({ alignItems: 'center', justifyContent: 'center' })}
@@ -36,34 +27,22 @@ export const CardComponent = ({ data, canBeFlipped = false, onFlipped }: { data:
     }
   };
 
-  useEffect(() => {
-    if (!canBeFlipped) {
-      const currentRef = cardRef.current;
+  const handleMouseMove = (e: MouseEvent) => {
+    const normalizedX = e.offsetX / 240;
+    const normalizedY = e.offsetY / 400;
 
-      const handleMouseMove = (e: MouseEvent) => {
-        const normalizedX = e.offsetX / 240;
-        const normalizedY = e.offsetY / 400;
-
-        if (currentRef) {
-          currentRef.style.transform = `translate3d(${Math.cos(Math.PI * normalizedX) * 5}px, ${Math.cos(Math.PI * normalizedY) * 5}px, 0)`;
-        }
-      };
-
-      const handleMouseLeave = (e: MouseEvent) => {
-        if (currentRef) {
-          currentRef.style.transform = `none`;
-        }
-      };
-
-      currentRef?.addEventListener('mousemove', handleMouseMove);
-      currentRef?.addEventListener('mouseleave', handleMouseLeave);
-
-      return () => {
-        currentRef?.removeEventListener('mousemove', handleMouseMove);
-        currentRef?.removeEventListener('mouseleave', handleMouseLeave);
-      };
+    if (e.currentTarget) {
+      (e.currentTarget  as HTMLElement).style.transform = `translate3d(${Math.cos(Math.PI * normalizedX) * 5}px, ${Math.cos(Math.PI * normalizedY) * 5}px, 0)`;
     }
-  }, [canBeFlipped, cardRef]);
+  };
+
+  const handleMouseLeave = (e: MouseEvent) => {
+    if (e.currentTarget) {
+      (e.currentTarget as HTMLElement).style.transform = `none`;
+    }
+  };
+
+  useMouseEvents({ onMove: handleMouseMove, onLeave: handleMouseLeave, target: cardRef });
 
   const normalizedRarity = +CardRarityEnum[data.rarity];
 
