@@ -1,5 +1,5 @@
 import { Dispatch, Reducer, SetStateAction, useContext, useReducer, useState } from 'react';
-import { Button } from 'src/components/shared/buttons';
+import { Button } from 'src/components/shared/button';
 import { StyledForm } from 'src/components/shared/styled-form';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';

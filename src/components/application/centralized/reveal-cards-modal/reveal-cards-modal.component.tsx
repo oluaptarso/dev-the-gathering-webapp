@@ -2,7 +2,7 @@ import { Reducer, useEffect, useReducer, useRef } from 'react';
 import { Card } from 'src/entities/card';
 import StyledRevealCardsModal from '../../shared/reveal-cards-modal/reveal-cards-modal.style';
 import { Transition } from 'react-transition-group';
-import { Button } from 'src/components/shared/buttons';
+import { Button } from 'src/components/shared/button';
 import { useApolloClient } from '@apollo/client';
 import { OPEN_BOOSTER_PACK } from 'src/graphql/mutations.ts/card';
 import { mergeWithResponseCard } from 'src/providers/dev-the-gathering-cards';

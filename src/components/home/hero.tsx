@@ -1,4 +1,4 @@
-import LinkButton from 'src/components/shared/buttons';
+import LinkButton from 'src/components/shared/button';
 import { Glitch } from 'src/styles/animations';
 import { Flex } from 'src/styles/mixins/flex';
 import styled from 'styled-components';

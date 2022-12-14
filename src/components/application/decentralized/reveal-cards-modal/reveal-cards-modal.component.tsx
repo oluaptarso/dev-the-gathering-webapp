@@ -2,7 +2,7 @@ import { Reducer, useContext, useEffect, useReducer, useRef } from 'react';
 import { Card } from 'src/entities/card';
 import StyledRevealCardsModal from '../../shared/reveal-cards-modal/reveal-cards-modal.style';
 import { Transition } from 'react-transition-group';
-import { Button } from 'src/components/shared/buttons';
+import { Button } from 'src/components/shared/button';
 import { mergeWithResponseCard } from 'src/providers/dev-the-gathering-cards';
 import { CardComponent } from '../../shared/card/card';
 import { Scrollbars } from 'react-custom-scrollbars';

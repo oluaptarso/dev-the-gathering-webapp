@@ -1,5 +1,5 @@
 import { Reducer, useContext, useEffect, useReducer } from 'react';
-import { Button } from 'src/components/shared/buttons';
+import { Button } from 'src/components/shared/button';
 import { ApplicationContext } from 'src/contexts/application';
 import { Card } from 'src/entities/card';
 import { CardComponent } from 'src/components/application/shared/card/card';
