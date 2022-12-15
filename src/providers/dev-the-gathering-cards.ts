@@ -19,7 +19,7 @@ export const enumFromStringValue = <T>(enm: { [s: string]: T}, value: string): T
     : undefined;
 }
 
-export const mergeWithResponseCard = (card: Card) => {
+export const mergeWithResponseCard = (card: Card) : Card => {
   return {
     id: card.id,
     externalId: card.externalId,
