@@ -25,7 +25,7 @@ export const useUser = () => {
     canOpenBoosterPack: false,
     lastBoosterPackOpenedAt: null,
     emailVerified: user.emailVerified,
-    loading: true,
+    loading: false,
   });
 
   const fetchUserData = useCallback(async () => {
