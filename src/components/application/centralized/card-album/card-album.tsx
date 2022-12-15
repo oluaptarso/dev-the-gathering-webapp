@@ -1,4 +1,4 @@
-import { Reducer, useContext, useEffect, useReducer } from 'react';
+import { Reducer, useCallback, useContext, useEffect, useReducer } from 'react';
 import { Button } from 'src/components/shared/button';
 import { ApplicationContext } from 'src/contexts/application';
 import { Card } from 'src/entities/card';
@@ -38,7 +38,7 @@ const CentralizedCardAlbum = () => {
     loading: true,
   });
 
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
     const response = await client.query({ query: GET_USER, fetchPolicy: 'no-cache' });
     if (response.data) {
       if (!response.data.user.canOpenBoosterPack) {
@@ -49,7 +49,7 @@ const CentralizedCardAlbum = () => {
         });
       }
     }
-  };
+  }, [client, user]);
 
   const { loading, error, data, refetch } = useQuery(GET_CARDS);
 
@@ -65,15 +65,8 @@ const CentralizedCardAlbum = () => {
 
   useEffect(() => {
     if (data) {
-      let cards: Card[] = [];
-      data.cards.forEach((card: Card) => {
-        cards.push(mergeWithResponseCard(card));
-      });
-
-      cards = cards.sort((a, b) => {
-        return a.number - b.number;
-      });
-
+      const cards = data.cards.map((card: Card) => mergeWithResponseCard(card));
+      cards.sort((a: Card, b: Card) => a.number - b.number);
       setState({ cards: cards, loading: false });
     }
   }, [loading, error, data]);
@@ -94,7 +87,9 @@ const CentralizedCardAlbum = () => {
       />
 
       <div
-        className={`container mb-4 d-flex flex-column flex-sm-row ${!!state.lastBoosterPackOpenedAt ? 'justify-content-end align-items-end justify-content-sm-between' : 'align-items-end justify-content-end'} p-0`}
+        className={`container mb-4 d-flex flex-column flex-sm-row ${
+          !!state.lastBoosterPackOpenedAt ? 'justify-content-end align-items-end justify-content-sm-between' : 'align-items-end justify-content-end'
+        } p-0`}
       >
         {!state.canOpenBoosterPack && state.lastBoosterPackOpenedAt && (
           <div className="booster-pack-already-opened-alert" role="alert">
