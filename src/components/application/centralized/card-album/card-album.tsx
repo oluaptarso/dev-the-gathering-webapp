@@ -19,24 +19,40 @@ interface CardAlbumState {
   canOpenBoosterPack: boolean;
   lastBoosterPackOpenedAt: number | null;
   emailVerified: boolean;
-  cards: Card[];
   openRevealModal: boolean;
   loading: boolean;
 }
 
 const CentralizedCardAlbum = () => {
   const user = useContext(AuthContext);
-  const application = useContext(ApplicationContext);
   const client = useApolloClient();
+  const cards: Card[] = [];
 
   const [state, setState] = useReducer<Reducer<CardAlbumState, Partial<CardAlbumState>>>((state, newState) => ({ ...state, ...newState }), {
     canOpenBoosterPack: true,
     lastBoosterPackOpenedAt: null,
     emailVerified: true,
-    cards: [],
     openRevealModal: false,
     loading: true,
   });
+
+  const { loading, error, data, refetch } = useQuery(GET_CARDS);
+
+  if (data) {
+    data.cards.forEach((card: Card) => cards.push(mergeWithResponseCard(card)));
+    cards.sort((a: Card, b: Card) => a.number - b.number);
+  }
+
+  useEffect(() => {
+    if (isAnICentralizedAuthenticatedUser(user)) {
+      if (user.emailVerified) {
+        fetchUserData();
+      } else {
+        setState({ canOpenBoosterPack: false, emailVerified: false, loading: false });
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchUserData = useCallback(async () => {
     const response = await client.query({ query: GET_USER, fetchPolicy: 'no-cache' });
@@ -48,41 +64,19 @@ const CentralizedCardAlbum = () => {
           emailVerified: isAnICentralizedAuthenticatedUser(user) ? user.emailVerified : true,
         });
       }
+      setState({ loading: false });
     }
   }, [client, user]);
 
-  const { loading, error, data, refetch } = useQuery(GET_CARDS);
-
-  useEffect(() => {
-    if (isAnICentralizedAuthenticatedUser(user)) {
-      if (user.emailVerified) {
-        fetchUserData();
-      } else {
-        setState({ canOpenBoosterPack: false, emailVerified: false });
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (data) {
-      const cards = data.cards.map((card: Card) => mergeWithResponseCard(card));
-      cards.sort((a: Card, b: Card) => a.number - b.number);
-      setState({ cards: cards, loading: false });
-    }
-  }, [loading, error, data]);
-
-  // only load if has an application.
-  if (!application) return <></>;
-
-  // if (!isAnIAuthenticationService(application.authenticationService))
+  const onOpenBoosterPack = useCallback(() => {
+    setState({ openRevealModal: false, loading: true });
+    refetch();
+    fetchUserData();
+  }, [fetchUserData, refetch]);
   return (
     <StyledCardAlbum>
       <CentralizedRevealCardsModal
-        onClose={() => {
-          setState({ openRevealModal: false, loading: true });
-          refetch();
-          fetchUserData();
-        }}
+        onClose={onOpenBoosterPack}
         show={state.openRevealModal}
       />
 
@@ -118,8 +112,8 @@ const CentralizedCardAlbum = () => {
             <LoadingContainer />
           ) : (
             <div className="row">
-              {state.cards.length ? (
-                state.cards.map((cardData, i) => <CardComponent key={`card-${cardData.id}-${i}`} data={cardData} />)
+              {cards.length ? (
+                cards.map((cardData, i) => <CardComponent key={`card-${cardData.id}-${i}`} data={cardData} />)
               ) : (
                 <h5 className="mt-5">You dont have any card yet.</h5>
               )}
